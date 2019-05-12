@@ -1,0 +1,47 @@
+---
+pipeline:
+  build:
+    image: golang:1.11
+    commands:
+      - make vet
+      - make test
+      - make build-drone
+    when:
+      event: push
+      branch: master
+
+  cr:
+    image: plugins/docker
+    registry: cr.chuhlomin.com
+    repo: cr.chuhlomin.com/busnj-writer-njtransit
+    tag:
+      - ${DRONE_COMMIT}
+      - latest
+    username: ${DOCKER_USERNAME}
+    secrets: [ docker_password ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets: [ docker_username, docker_password ]
+    when:
+      event: push
+      branch: master
+
+  deploy:
+    image: cr.chuhlomin.com/do-deploy:latest
+    username: root
+    server: busnj.chuhlomin.com
+    docker_image: cr.chuhlomin.com/busnj-writer-njtransit:${DRONE_COMMIT}
+    docker_network: beta_default
+    docker_network_alias: busnj-writer-njtransit
+    container_name: busnj-writer-njtransit
+    log_driver: syslog
+    envs:
+      REDIS_ADDR: "redis:6379"
+    secrets:
+      - source: busdata_username.txt
+        target: SECRET_BUSDATA_USERNAME
+      - source: busdata_password.txt
+        target: SECRET_BUSDATA_PASSWORD
+    when:
+      event: push
+      branch: master

@@ -1,3 +1,4 @@
 data
+secrets
 *.env
 cmd/writer/writer
