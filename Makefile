@@ -25,5 +25,4 @@ docker-run:
 		--network busnj-network \
 		--env BUSDATA_USERNAME=${BUSDATA_USERNAME} \
 		--env BUSDATA_PASSWORD=${BUSDATA_PASSWORD} \
-		--env REDIS_ADDR=${REDIS_ADDR} \
 		busnj-writer-njtransit:latest;

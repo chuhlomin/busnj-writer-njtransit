@@ -18,7 +18,7 @@ type config struct {
 	BusdataPassword       string        `env:"BUSDATA_PASSWORD,required"`
 	BusdataUpdateInterval time.Duration `env:"BUSDATA_UPDATE_INTERVAL" envDefault:"5S"`
 	RedisNetwork          string        `env:"REDIS_NETWORK" envDefault:"tcp"`
-	RedisAddr             string        `env:"REDIS_ADDR" envDefault:"127.0.0.1:6379"`
+	RedisAddr             string        `env:"REDIS_ADDR" envDefault:"redis:6379"`
 	RedisSize             int           `env:"REDIS_SIZE" envDefault:"10"`
 }
 

@@ -35,8 +35,6 @@ pipeline:
     docker_network_alias: busnj-writer-njtransit
     container_name: busnj-writer-njtransit
     log_driver: syslog
-    envs:
-      REDIS_ADDR: "redis:6379"
     secrets:
       - source: busdata_username.txt
         target: SECRET_BUSDATA_USERNAME
