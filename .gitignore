@@ -1,0 +1,3 @@
+data
+*.env
+cmd/writer/writer
