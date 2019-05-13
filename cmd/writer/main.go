@@ -16,7 +16,7 @@ import (
 type config struct {
 	BusdataUsername       string        `env:"BUSDATA_USERNAME,required"`
 	BusdataPassword       string        `env:"BUSDATA_PASSWORD,required"`
-	BusdataUpdateInterval time.Duration `env:"BUSDATA_UPDATE_INTERVAL" envDefault:"5S"`
+	BusdataUpdateInterval time.Duration `env:"BUSDATA_UPDATE_INTERVAL" envDefault:"5s"`
 	RedisNetwork          string        `env:"REDIS_NETWORK" envDefault:"tcp"`
 	RedisAddr             string        `env:"REDIS_ADDR" envDefault:"redis:6379"`
 	RedisSize             int           `env:"REDIS_SIZE" envDefault:"10"`
