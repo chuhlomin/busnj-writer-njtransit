@@ -42,6 +42,8 @@ pipeline:
         target: SECRET_BUSDATA_USERNAME
       - source: busdata_password.txt
         target: SECRET_BUSDATA_PASSWORD
+      - source: ssh_key
+        target: ssh_key
     when:
       event: push
       branch: master
