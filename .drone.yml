@@ -13,6 +13,7 @@ pipeline:
   cr:
     image: plugins/docker
     context: ./cmd/writer
+    dockerfile: cmd/writer/Dockerfile
     registry: cr.chuhlomin.com
     repo: cr.chuhlomin.com/busnj-writer-njtransit
     tag:
