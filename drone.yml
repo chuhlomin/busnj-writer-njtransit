@@ -27,7 +27,7 @@ pipeline:
       branch: master
 
   deploy:
-    image: cr.chuhlomin.com/do-deploy:latest
+    image: cr.chuhlomin.com/docker-run:latest
     username: root
     server: busnj.chuhlomin.com
     docker_image: cr.chuhlomin.com/busnj-writer-njtransit:${DRONE_COMMIT}
