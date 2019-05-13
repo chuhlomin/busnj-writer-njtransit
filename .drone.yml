@@ -12,6 +12,7 @@ pipeline:
 
   cr:
     image: plugins/docker
+    context: ./cmd/writer
     registry: cr.chuhlomin.com
     repo: cr.chuhlomin.com/busnj-writer-njtransit
     tag:
