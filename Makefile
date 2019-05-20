@@ -4,7 +4,7 @@ build:
 
 build-drone:
 	@cd ./cmd/writer; \
-	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o writer .
+	CGO_ENABLED=0 GOOS=linux go build -mod=readonly -a -installsuffix cgo -o writer .
 
 run:
 	@cd ./cmd/writer; \
@@ -16,10 +16,10 @@ vet:
 test:
 	@go test ./...
 
-docker-build:
+build-docker:
 	@docker build --tag busnj-writer-njtransit:latest ./cmd/writer;
 
-docker-run:
+run-docker:
 	@docker run --name busnj-writer-njtransit \
 		--rm \
 		--network busnj-network \

@@ -94,7 +94,7 @@ func run(busData *njt.BusDataClient, redis *redis.Client, updateInterval time.Du
 				continue
 			}
 
-			err = redis.SaveBusVehicleDataMessage(row.VehicleID, response)
+			_, err = redis.SaveBusVehicleDataMessage(row.VehicleID, response)
 			if err != nil {
 				log.Printf("Failed to save message to Redis: %v", err)
 				continue
