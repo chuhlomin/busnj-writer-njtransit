@@ -2,6 +2,8 @@ github.com/caarlos0/env v3.5.0+incompatible h1:Yy0UN8o9Wtr/jGHZDpCBLpNrzcFLLM2yi
 github.com/caarlos0/env v3.5.0+incompatible/go.mod h1:tdCsowwCzMLdkqRYDlHpZCp2UooDD3MspDBjZ2AD02Y=
 github.com/chuhlomin/njtransit v0.0.0-20190428002603-3e42c0d38a2f h1:aCV5QqaDPTCaANDWmEg6BjeF6wqCNtEGFzJ4KJQM6U0=
 github.com/chuhlomin/njtransit v0.0.0-20190428002603-3e42c0d38a2f/go.mod h1:Rmu/6IDZDUW2RCyAjP0AU3mTRID/aCGMODDEaNpf0Ok=
+github.com/chuhlomin/njtransit v0.0.0-20190625025421-5748e20c3fe1 h1:V1UT3j4YiJOZ7epKMcRsa/WdWmAtF0sEx6/IKu4qOMs=
+github.com/chuhlomin/njtransit v0.0.0-20190625025421-5748e20c3fe1/go.mod h1:Rmu/6IDZDUW2RCyAjP0AU3mTRID/aCGMODDEaNpf0Ok=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/mediocregopher/mediocre-go-lib v0.0.0-20181029021733-cb65787f37ed h1:3dQJqqDouawQgl3gBE1PNHKFkJYGEuFb1DbSlaxdosE=
