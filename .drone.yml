@@ -48,6 +48,7 @@ steps:
     settings:
       server: delta.chuhlomin.com
       username: drone
+      sudo: true
       docker_image: cr.chuhlomin.com/busnj-writer-njtransit:${DRONE_COMMIT}
       docker_network: delta_default
       docker_network_alias: busnj-writer-njtransit
