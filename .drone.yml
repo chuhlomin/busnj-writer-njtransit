@@ -1,49 +1,77 @@
 ---
-pipeline:
-  build:
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: build
     image: golang:1.12
+    pull: if-not-exists
     commands:
       - make vet
       - make test
       - make build-drone
     when:
-      event: push
-      branch: master
+      branch:
+        - master
+      event:
+        - push
 
-  cr:
+  - name: cr
     image: plugins/docker
-    context: ./cmd/writer
-    dockerfile: cmd/writer/Dockerfile
-    registry: cr.chuhlomin.com
-    repo: cr.chuhlomin.com/busnj-writer-njtransit
-    tag:
-      - ${DRONE_COMMIT}
-      - latest
-    username: ${DOCKER_USERNAME}
-    secrets: [ docker_password ]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets: [ docker_username, docker_password ]
+    pull: if-not-exists
+    settings:
+      context: ./cmd/writer
+      dockerfile: cmd/writer/Dockerfile
+      registry: cr.chuhlomin.com
+      repo: cr.chuhlomin.com/busnj-writer-njtransit
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      tag:
+        - ${DRONE_COMMIT}
+        - latest
     when:
-      event: push
-      branch: master
+      branch:
+        - master
+      event:
+        - push
 
-  deploy:
+  - name: deploy
     image: cr.chuhlomin.com/docker-run:latest
-    username: root
-    server: busnj.chuhlomin.com
-    docker_image: cr.chuhlomin.com/busnj-writer-njtransit:${DRONE_COMMIT}
-    docker_network: beta_default
-    docker_network_alias: busnj-writer-njtransit
-    container_name: busnj-writer-njtransit
-    log_driver: syslog
-    secrets:
-      - source: busdata_username.txt
-        target: SECRET_BUSDATA_USERNAME
-      - source: busdata_password.txt
-        target: SECRET_BUSDATA_PASSWORD
-      - source: ssh_key
-        target: ssh_key
+    pull: if-not-exists
+    settings:
+      server: delta.chuhlomin.com
+      username: drone
+      docker_image: cr.chuhlomin.com/busnj-writer-njtransit:${DRONE_COMMIT}
+      docker_network: delta_default
+      docker_network_alias: busnj-writer-njtransit
+      log_driver: loki
+      log_opt:
+        loki-url: http://127.0.0.1:3100/api/prom/push
+      envs:
+        REDIS_ADDR: redis:6379
+    environment:
+      SECRET_BUSDATA_PASSWORD:
+        from_secret: busdata_password.txt
+      SECRET_BUSDATA_USERNAME:
+        from_secret: busdata_username.txt
+      SSH_KEY:
+        from_secret: ssh_key
     when:
-      event: push
-      branch: master
+      branch:
+        - master
+      event:
+        - push
+
+trigger:
+  branch:
+    - master
+
+image_pull_secrets:
+- dockerconfigjson
