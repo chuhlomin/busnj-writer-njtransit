@@ -77,7 +77,7 @@ jobs:
             app: ${{ env.DEPLOYMENT_NAME }}
             image: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
             busdata_username: chuhlomin
-            busdata_password_base64:
+            busdata_password_base64: ${{ secrets.BUSDATA_PASSWORD_BASE64 }}
             busdata_update_interval: 5s
             redis_addr: redis:6379
 
