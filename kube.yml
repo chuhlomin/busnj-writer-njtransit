@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .app }}-secrets
+data:
+  busdata_password: {{ .busdata_password_base64 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .app }}
+  labels:
+    app: {{ .app }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .app }}
+    spec:
+      containers:
+        - name: busnj-writer-njtransit
+          image: {{ .image }}
+          env:
+            - name: REDIS_ADDR
+              value: {{ .redis_addr }}
+            - name: BUSDATA_USERNAME
+              value: {{ .busdata_username }}
+            - name: BUSDATA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .app }}-secrets
+                  key: busdata_password
+            - name: BUSDATA_UPDATE_INTERVAL
+              value: {{ .busdata_update_interval }}
+      imagePullSecrets:
+        - name: regcred

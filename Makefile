@@ -2,7 +2,7 @@ build:
 	@cd ./cmd/writer; \
 	go build .
 
-build-drone:
+build-static:
 	@cd ./cmd/writer; \
 	CGO_ENABLED=0 GOOS=linux go build -mod=readonly -a -installsuffix cgo -o writer .
 
