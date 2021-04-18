@@ -24,6 +24,13 @@ spec:
       containers:
         - name: busnj-writer-njtransit
           image: {{ .image }}
+          resources:
+            limits:
+              cpu: 20m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
           env:
             - name: REDIS_ADDR
               value: {{ .redis_addr }}
